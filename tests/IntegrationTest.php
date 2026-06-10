@@ -23,7 +23,7 @@ final class IntegrationTest extends TestCase
         // Swap the SDK's transport for an in-memory one so we can inspect the
         // envelope the bridge would send (provider boot already wired the
         // reportable callback to Sdk::captureException).
-        $transport = new NullTransport();
+        $transport = new NullTransport;
         Sdk::bind(new Client(new Options(dsn: 'http://k@localhost/proj'), $transport));
 
         $this->app->make(ExceptionHandler::class)->report(new \RuntimeException('boom from laravel'));

@@ -1,0 +1,11 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 6
+    paths:
+        - src
+    # Container bindings (e.g. the resolved ExceptionHandler) are typed via PHPDoc,
+    # not guaranteed concrete types — so defensive method_exists()/instanceof guards
+    # against custom implementations are legitimate, not "always true/false".
+    treatPhpDocTypesAsCertain: false

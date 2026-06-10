@@ -14,4 +14,12 @@ return [
 
     // When false (default), likely-PII is scrubbed before sending.
     'send_default_pii' => (bool) env('TIDEN_SEND_DEFAULT_PII', false),
+
+    // Record Laravel activity as breadcrumbs on the next captured event.
+    // (SQL bindings and log context are never recorded.)
+    'breadcrumbs' => [
+        'sql' => (bool) env('TIDEN_BREADCRUMBS_SQL', true),
+        'queue' => (bool) env('TIDEN_BREADCRUMBS_QUEUE', true),
+        'logs' => (bool) env('TIDEN_BREADCRUMBS_LOGS', true),
+    ],
 ];

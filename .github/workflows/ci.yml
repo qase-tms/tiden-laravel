@@ -28,4 +28,6 @@ jobs:
           tools: composer:v2
       - run: composer validate --strict --no-check-publish
       - run: composer update --no-interaction --no-progress --prefer-dist --prefer-stable
+      - run: composer lint
+      - run: composer analyse
       - run: composer test

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Tiden\Laravel;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
-use Tiden\Sdk;
 use Throwable;
+use Tiden\Sdk;
 
 /**
  * Auto-discovered Laravel integration. Initializes the Tiden SDK from config and
@@ -18,35 +20,42 @@ final class TidenServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/tiden.php', 'tiden');
+        $this->mergeConfigFrom(__DIR__.'/../config/tiden.php', 'tiden');
     }
 
     public function boot(): void
     {
         /** @var array<string,mixed> $config */
-        $config = (array) $this->app['config']->get('tiden', []);
+        $config = (array) $this->app->make(Repository::class)->get('tiden', []);
+        $dsn = $config['dsn'] ?? null;
 
-        if (!empty($config['dsn'])) {
+        if (is_string($dsn) && $dsn !== '') {
             // Laravel owns global error handling, so the core SDK's own handlers
             // are disabled — capture flows through the reportable callback below.
             Sdk::init([
-                'dsn' => $config['dsn'],
+                'dsn' => $dsn,
                 'release' => $config['release'] ?? null,
                 'environment' => $config['environment'] ?? null,
                 'send_default_pii' => (bool) ($config['send_default_pii'] ?? false),
             ], captureGlobals: false);
 
+            // The framework/Collision handler exposes reportable(); guard for any
+            // custom handler that doesn't.
             $handler = $this->app->make(ExceptionHandler::class);
             if (method_exists($handler, 'reportable')) {
                 $handler->reportable(static function (Throwable $e): void {
                     Sdk::captureException($e);
                 });
             }
+
+            /** @var array<string,bool> $breadcrumbs */
+            $breadcrumbs = (array) ($config['breadcrumbs'] ?? []);
+            Breadcrumbs::register($this->app->make(Dispatcher::class), $breadcrumbs);
         }
 
         if ($this->app->runningInConsole()) {
             $this->publishes(
-                [__DIR__ . '/../config/tiden.php' => $this->app->configPath('tiden.php')],
+                [__DIR__.'/../config/tiden.php' => $this->app->configPath('tiden.php')],
                 'tiden-config',
             );
         }
