@@ -1,13 +1,13 @@
-# tiden/laravel
+# tiden/telemetry-laravel
 
 Laravel integration for [Tiden](https://tiden.ai) error tracking. Auto-captures
 every exception Laravel reports and sends it to your Tiden project. Built on
-[`tiden/php`](https://github.com/qase-tms/tiden-php).
+[`tiden/telemetry-php`](https://github.com/qase-tms/tiden-telemetry-php).
 
 ## Install
 
 ```bash
-composer require tiden/laravel
+composer require tiden/telemetry-laravel
 ```
 
 The service provider is auto-discovered. Set your DSN:

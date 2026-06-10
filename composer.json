@@ -1,17 +1,17 @@
 {
-    "name": "tiden/laravel",
-    "description": "Tiden error tracking for Laravel — auto-captures reported exceptions and sends them to your Tiden project. Built on tiden/php.",
+    "name": "tiden/telemetry-laravel",
+    "description": "Tiden error tracking for Laravel — auto-captures reported exceptions and sends them to your Tiden project. Built on tiden/telemetry-php.",
     "keywords": ["tiden", "laravel", "error-tracking", "exceptions", "sdk"],
-    "homepage": "https://github.com/qase-tms/tiden-laravel",
+    "homepage": "https://github.com/qase-tms/tiden-telemetry-laravel",
     "support": {
-        "issues": "https://github.com/qase-tms/tiden-laravel/issues",
-        "source": "https://github.com/qase-tms/tiden-laravel"
+        "issues": "https://github.com/qase-tms/tiden-telemetry-laravel/issues",
+        "source": "https://github.com/qase-tms/tiden-telemetry-laravel"
     },
     "license": "MIT",
     "type": "library",
     "require": {
         "php": "^8.2",
-        "tiden/php": "^0.1",
+        "tiden/telemetry-php": "^0.1",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0",
         "illuminate/contracts": "^10.0 || ^11.0 || ^12.0"
     },
