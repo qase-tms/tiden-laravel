@@ -1,7 +1,9 @@
 name: CI
 
-# Tests across PHP + Laravel versions via Orchestra Testbench. No publish step:
-# Packagist auto-updates from this public repo on a git tag.
+# Tests across PHP versions on the latest supported Laravel (via Testbench).
+# The package declares support for Laravel 10/11/12 (illuminate ^10||^11||^12);
+# CI runs the current secure release. No publish step: Packagist auto-updates
+# from this public repo on a git tag.
 
 on:
   push:
@@ -14,11 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { php: '8.2', testbench: '^8.0' }   # Laravel 10
-          - { php: '8.3', testbench: '^9.0' }   # Laravel 11
-          - { php: '8.4', testbench: '^10.0' }  # Laravel 12
-    name: PHP ${{ matrix.php }} · testbench ${{ matrix.testbench }}
+        php: ['8.2', '8.3', '8.4']
+    name: PHP ${{ matrix.php }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
@@ -28,7 +27,5 @@ jobs:
           coverage: none
           tools: composer:v2
       - run: composer validate --strict --no-check-publish
-      - name: Pin testbench for the matrix Laravel version
-        run: composer require --dev --no-update "orchestra/testbench:${{ matrix.testbench }}"
-      - run: composer update --no-interaction --no-progress --prefer-dist
+      - run: composer update --no-interaction --no-progress --prefer-dist --prefer-stable
       - run: composer test
