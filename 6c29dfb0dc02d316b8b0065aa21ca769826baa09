@@ -1,0 +1,38 @@
+config/tiden.php
+  s_56a860e8688b3d::t_2f49eb33dd1751 17-24
+tests/TestCase.php
+  s_56a860e8688b3d::t_46b07f8982500a 22-27
+.github/workflows/ci.yml
+  s_56a860e8688b3d::t_85507aa974a98e 31-32
+tests/BreadcrumbsTest.php
+  s_56a860e8688b3d::t_6efded02e89837 1-18,20-38
+composer.json
+  s_56a860e8688b3d::t_06798845611a0d 19-20
+  s_56a860e8688b3d::t_095a41f5abe155 42-45,48-51
+phpstan.neon
+  s_56a860e8688b3d::t_a7b92ece41d5a9 1-7
+  s_56a860e8688b3d::t_37b96c6c050ab5 8-11
+src/TidenServiceProvider.php
+  s_56a860e8688b3d::t_e44068dd333d5a 42-43
+  s_56a860e8688b3d::t_fb014ce524cdf1 29-30,32,36,51-53
+  s_56a860e8688b3d::t_3112f7ca99e672 7,9
+  s_56a860e8688b3d::t_c6be4ae7039f3f 50
+src/Breadcrumbs.php
+  s_56a860e8688b3d::t_4977300cf1cefa 1-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "6c29dfb0dc02d316b8b0065aa21ca769826baa09",
+  "prompts": {},
+  "sessions": {
+    "s_56a860e8688b3d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "86266585-447a-436d-b2d7-7acca96d78db",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Tiden <dev@tiden.ai>"
+    }
+  }
+}
